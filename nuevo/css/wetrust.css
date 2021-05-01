@@ -3,6 +3,7 @@
 }
 body{
     font-family: 'Nunito', sans-serif;
+    -webkit-touch-callout: none;
 }
 .margin-body{
     margin-top:1rem;
