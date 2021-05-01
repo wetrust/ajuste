@@ -165,3 +165,9 @@ footer a:hover{
 .highcharts-background{
     fill:  var(--bs-light);
 }
+
+/*adicionales*/
+
+.etiqueta-min{
+    min-width: 3.4rem;
+}
