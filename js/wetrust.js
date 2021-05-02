@@ -149,7 +149,7 @@ export function clearSelect(id){
     }
 }
 
-export function loadSelect(id, data){
+export function loadSelect(id, data) {
     data.forEach(function(element) {
         let opcion = the(id);
         let opt = document.createElement('option');

@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Ajuste al Peso Neonatal</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link href="css/bootstrap-theme.min.css" rel="stylesheet" />
+        <link href="css/cover.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="div2" class="site-wrapper">
+            <div class="container">
+                <h3 class="page-header">INGRESO DE DATOS NEONATALES</h3>
+            </div>
+            <div class="container" style="margin-top: 20px;">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h4 class="text-left">Edad al parto</h4>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <select id="eg" class="form-control">
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                    <option value="32">32</option>
+                                    <option value="33">33</option>
+                                    <option value="34">34</option>
+                                    <option value="35">35</option>
+                                    <option value="36">36</option>
+                                    <option value="37">37</option>
+                                    <option value="38">38</option>
+                                    <option value="39">39</option>
+                                    <option value="40" selected>40</option>
+                                    <option value="41">41</option>
+                                    <option value="42">42</option>
+                                </select>
+                                <div class="input-group-addon">sem</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h4 class="text-left">Peso neonatal</h4>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group" id="pesogroup">
+                            <div class="input-group" id="pesoinput">
+                                <input type="number" class="form-control" id="peso" maxlength="4" onkeypress="peso_change" />
+                                <div class="input-group-addon" id="pesolabel">gr</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h4 class="text-left">Talla neonatal</h4>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group" id="tallagroup">
+                            <div class="input-group" id="tallainput">
+                                <input type="number" class="form-control" id="talla" maxlength="3" />
+                                <div class="input-group-addon" id="tallalabel">mm</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="margin-top: 40px;">
+                <button class="btn btn-primary btn-lg center-block" id="p3">Continuar</button>
+            </div>
+            <div class="container" style="margin-top: 40px;">
+                <h4 class="text-left">REFERENCIAS BIBLIOGRÁFICAS</h4>
+                <p class="text-justify">
+                    <strong>* Referencia Nacional Chilena</strong><br />
+                    M. MILAD A. y cols.<br />
+                    Rev Chil Pediatr 2010; 81 (3): 264-274<br />
+                    <strong style="color: #2e6da4;">Ver PDF</strong>
+                </p>
+                <p class="text-justify">
+                    <strong>** Referencia Regional Temuco</strong><br />
+                    RUDECINDO LAGOS S. y cols.<br />
+                    Rev Chil Obstet Ginecol 2009; 74(4): 209 – 216<br />
+                    <strong style="color: #2e6da4;">Ver PDF</strong>
+                </p>
+            </div>
+        </div>
+        <!-- Pantalla 3-->
+        <div id="div3" class="site-wrapper" style="padding-top: 5px; display: none;">
+            <div class="container">
+                <div class="panel panel-default">
+                    <div class="table-responsive">
+                        <table class="text-left" style="margin: 5px 0 5px 5px;">
+                            <tbody>
+                                <tr>
+                                    <td style="padding-left: 5px;">Semanas</td>
+                                    <td>: <span class="label label-default" id="eg1"></span></td>
+                                    <td>semanas</td>
+                                </tr>
+                                <tr style="padding-right: 30px;">
+                                    <td style="padding-left: 5px;">Peso RN</td>
+                                    <td>: <span class="label label-default" id="peso1"></span></td>
+                                    <td>gramos</td>
+                                </tr>
+                                <tr style="padding-right: 30px;">
+                                    <td style="padding-left: 5px;">Talla RN</td>
+                                    <td>: <span class="label label-default" id="talla1"></span></td>
+                                    <td>milimetros</td>
+                                </tr>
+                                <tr style="padding-right: 30px;">
+                                    <td style="padding-left: 5px;">IPN</td>
+                                    <td>: <span class="label label-default" id="valipn"></span></td>
+                                    <td>peso / talla<sup>3</sup></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid bg-primary">
+                <h4>Gráfico de referencia Peso / Ege.*</h4>
+            </div>
+            <div class="well">
+                <div class="container-fluid">
+                    <button class="btn btn-primary btn-lg center-block" id="g1">Ver Gráfico</button>
+                </div>
+            </div>
+            <div class="container-fluid bg-primary">
+                <h4>Gráfico de referencia IPN / Ege.*</h4>
+            </div>
+            <div class="well">
+                <div class="container-fluid">
+                    <button class="btn btn-primary btn-lg center-block" id="g2">Ver Gráfico</button>
+                </div>
+            </div>
+            <div class="container-fluid bg-primary">
+                <h4>Gráfico ponderación adicional con 6 variables no patológicas**</h4>
+            </div>
+            <div class="well">
+                <div class="container-fluid">
+                    <button class="btn btn-primary btn-lg center-block" id="p4">Ver Gráfico</button>
+                </div>
+            </div>
+        </div>
+        <!-- Pantalla 4 Grafico peso eg-->
+        <div id="div4" class="site-wrapper" style="padding-top: 5px; display: none;">
+            <div class="container">
+                <div class="panel panel-default">
+                    <div class="table-responsive">
+                        <table class="text-left" style="margin: 5px 0 5px 5px;">
+                            <tbody>
+                                <tr>
+                                    <td style="padding-left: 5px;">Semanas</td>
+                                    <td>: <span class="label label-default" id="eg2"></span></td>
+                                    <td>semanas</td>
+                                </tr>
+                                <tr style="padding-right: 30px;">
+                                    <td style="padding-left: 5px;">Peso RN</td>
+                                    <td>: <span class="label label-default" id="peso2"></span></td>
+                                    <td>gramos</td>
+                                </tr>
+                                <tr style="padding-right: 30px;">
+                                    <td style="padding-left: 5px;">Peso / EG - Nacional</td>
+                                    <td>: <span class="label label-default" id="pesoeg1"></span></td>
+                                    <td>.</td>
+                                </tr>
+                                <tr style="padding-right: 30px;">
+                                    <td style="padding-left: 5px;">Peso / EG - Rregional</td>
+                                    <td>: <span class="label label-default" id="pesoeg2"></span></td>
+                                    <td>.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="grafico1"></div>
+                <button class="btn btn-primary btn-lg center-block" style="margin-top: 15px; margin-bottom: 15px;" id="chg1">Cambiar gráfica</button>
+            </div>
+        </div>
+        <!-- Pantalla 5 Grafico ipn eg-->
+        <div id="div5" class="site-wrapper" style="padding-top: 5px; display: none;">
+            <div class="container">
+                <div class="panel panel-default">
+                    <div class="table-responsive">
+                        <table class="text-left" style="margin: 5px 0 5px 5px;">
+                            <tbody>
+                                <tr>
+                                    <td style="padding-left: 5px;">Semanas</td>
+                                    <td>: <span class="label label-default" id="eg3"></span></td>
+                                    <td>semanas</td>
+                                </tr>
+                                <tr style="padding-right: 30px;">
+                                    <td style="padding-left: 5px;">IPN</td>
+                                    <td>: <span class="label label-default" id="valipn1"></span></td>
+                                    <td>peso / talla<sup>3</sup></td>
+                                </tr>
+                                <tr style="padding-right: 30px;">
+                                    <td style="padding-left: 5px;">IPN / EG Nacional</td>
+                                    <td>: <span class="label label-default" id="ipneg1"></span></td>
+                                    <td>.</td>
+                                </tr>
+                                <tr style="padding-right: 30px;">
+                                    <td style="padding-left: 5px;">IPN / EG Regional</td>
+                                    <td>: <span class="label label-default" id="ipneg2"></span></td>
+                                    <td>.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="grafico2"></div>
+                <button class="btn btn-primary btn-lg center-block" style="margin-top: 15px; margin-bottom: 15px;" id="chg2">Cambiar gráfica</button>
+            </div>
+        </div>
+        <!-- Pantalla 6 variables de ajuste-->
+        <div id="div6" class="site-wrapper" style="padding-top: 5px; display: none;">
+            <div class="container">
+                <div class="panel panel-default">
+                    <div class="table-responsive">
+                        <table class="text-left" style="margin: 5px 0 5px 5px;">
+                            <tbody>
+                                <tr>
+                                    <td style="padding-left: 5px;">Semanas</td>
+                                    <td>: <span class="label label-default" id="eg4"></span></td>
+                                    <td>semanas</td>
+                                </tr>
+                                <tr style="padding-right: 30px;">
+                                    <td style="padding-left: 5px;">Peso RN</td>
+                                    <td>: <span class="label label-default" id="peso3"></span></td>
+                                    <td>gramos</td>
+                                </tr>
+                                <tr style="padding-right: 30px;">
+                                    <td style="padding-left: 5px;">IPN</td>
+                                    <td>: <span class="label label-default" id="valipn2"></span></td>
+                                    <td>peso / talla<sup>3</sup></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 5px; background-color: #337ab7;">
+                    <div class="col-xs-5">
+                        <p class="text-left">Sexo Neonatal</p>
+                    </div>
+                    <div class="col-xs-7">
+                        <select id="sn" class="form-control">
+                            <option value="1" selected>Femeníno</option>
+                            <option value="0">Masculíno</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 5px; background-color: #337ab7;">
+                    <div class="col-xs-5">
+                        <p class="text-left">Paridad Materna</p>
+                    </div>
+                    <div class="col-xs-7">
+                        <select id="pm" class="form-control">
+                            <option value="1" selected>Primípara</option>
+                            <option value="0">Multípara</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 5px; padding-bottom: 5px; background-color: #337ab7;">
+                    <div class="col-xs-5">
+                        <p class="text-left">Estado Nutricional</p>
+                    </div>
+                    <div class="col-xs-7">
+                        <select id="imc" class="form-control">
+                            <option value="1">Enflaquecida</option>
+                            <option value="2">Normal</option>
+                            <option value="3">SobrePeso</option>
+                            <option value="4" selected>Obesidad</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 5px;">
+                    <div class="col-xs-5">
+                        <p class="text-left">Talla Materna</p>
+                    </div>
+                    <div class="col-xs-7">
+                        <select id="tm" class="form-control">
+                            <option value="135">135 cms</option>
+                            <option value="136">136 cms</option>
+                            <option value="137">137 cms</option>
+                            <option value="138">138 cms</option>
+                            <option value="139">139 cms</option>
+                            <option value="140">140 cms</option>
+                            <option value="141">141 cms</option>
+                            <option value="142">142 cms</option>
+                            <option value="143">143 cms</option>
+                            <option value="144">144 cms</option>
+                            <option value="145">145 cms</option>
+                            <option value="146">146 cms</option>
+                            <option value="147">147 cms</option>
+                            <option value="148">148 cms</option>
+                            <option value="149" selected>149 cms</option>
+                            <option value="150">150 cms</option>
+                            <option value="151">151 cms</option>
+                            <option value="152">152 cms</option>
+                            <option value="153">153 cms</option>
+                            <option value="154">154 cms</option>
+                            <option value="155">155 cms</option>
+                            <option value="156">156 cms</option>
+                            <option value="157">157 cms</option>
+                            <option value="158">158 cms</option>
+                            <option value="159">159 cms</option>
+                            <option value="160">160 cms</option>
+                            <option value="161">161 cms</option>
+                            <option value="162">162 cms</option>
+                            <option value="163">163 cms</option>
+                            <option value="164">164 cms</option>
+                            <option value="165">165 cms</option>
+                            <option value="166">166 cms</option>
+                            <option value="167">167 cms</option>
+                            <option value="168">168 cms</option>
+                            <option value="169">169 cms</option>
+                            <option value="170">170 cms</option>
+                            <option value="171">171 cms</option>
+                            <option value="172">172 cms</option>
+                            <option value="173">173 cms</option>
+                            <option value="174">174 cms</option>
+                            <option value="175">175 cms</option>
+                            <option value="176">176 cms</option>
+                            <option value="177">177 cms</option>
+                            <option value="178">178 cms</option>
+                            <option value="179">179 cms</option>
+                            <option value="180">180 cms</option>
+                            <option value="181">181 cms</option>
+                            <option value="182">182 cms</option>
+                            <option value="183">183 cms</option>
+                            <option value="184">184 cms</option>
+                            <option value="185">185 cms</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 5px;">
+                    <div class="col-xs-5">
+                        <p class="text-left">Peso Materno</p>
+                    </div>
+                    <div class="col-xs-7">
+                        <select id="pesom" class="form-control">
+                            <option value="35">35 kgs</option>
+                            <option value="36">36 kgs</option>
+                            <option value="37">37 kgs</option>
+                            <option value="38">38 kgs</option>
+                            <option value="39">39 kgs</option>
+                            <option value="40">40 kgs</option>
+                            <option value="41">41 kgs</option>
+                            <option value="42">42 kgs</option>
+                            <option value="43">43 kgs</option>
+                            <option value="44">44 kgs</option>
+                            <option value="45">45 kgs</option>
+                            <option value="46">46 kgs</option>
+                            <option value="47">47 kgs</option>
+                            <option value="48">48 kgs</option>
+                            <option value="49">49 kgs</option>
+                            <option value="50">50 kgs</option>
+                            <option value="51">51 kgs</option>
+                            <option value="52">52 kgs</option>
+                            <option value="53">53 kgs</option>
+                            <option value="54">54 kgs</option>
+                            <option value="55">55 kgs</option>
+                            <option value="56">56 kgs</option>
+                            <option value="57">57 kgs</option>
+                            <option value="58">58 kgs</option>
+                            <option value="59">59 kgs</option>
+                            <option value="60">60 kgs</option>
+                            <option value="61">61 kgs</option>
+                            <option value="62">62 kgs</option>
+                            <option value="63">63 kgs</option>
+                            <option value="64">64 kgs</option>
+                            <option value="65">65 kgs</option>
+                            <option value="66">66 kgs</option>
+                            <option value="67">67 kgs</option>
+                            <option value="68">68 kgs</option>
+                            <option value="69">69 kgs</option>
+                            <option value="70" selected>70 kgs</option>
+                            <option value="71">71 kgs</option>
+                            <option value="72">72 kgs</option>
+                            <option value="73">73 kgs</option>
+                            <option value="74">74 kgs</option>
+                            <option value="75">75 kgs</option>
+                            <option value="76">76 kgs</option>
+                            <option value="77">77 kgs</option>
+                            <option value="78">78 kgs</option>
+                            <option value="79">79 kgs</option>
+                            <option value="80">80 kgs</option>
+                            <option value="81">81 kgs</option>
+                            <option value="82">82 kgs</option>
+                            <option value="83">83 kgs</option>
+                            <option value="84">84 kgs</option>
+                            <option value="85">85 kgs</option>
+                            <option value="86">86 kgs</option>
+                            <option value="87">87 kgs</option>
+                            <option value="88">88 kgs</option>
+                            <option value="89">89 kgs</option>
+                            <option value="90">90 kgs</option>
+                            <option value="91">91 kgs</option>
+                            <option value="92">92 kgs</option>
+                            <option value="93">93 kgs</option>
+                            <option value="94">94 kgs</option>
+                            <option value="95">95 kgs</option>
+                            <option value="96">96 kgs</option>
+                            <option value="97">97 kgs</option>
+                            <option value="98">98 kgs</option>
+                            <option value="99">99 kgs</option>
+                            <option value="100">100 kgs</option>
+                            <option value="101">101 kgs</option>
+                            <option value="102">102 kgs</option>
+                            <option value="103">103 kgs</option>
+                            <option value="104">104 kgs</option>
+                            <option value="105">105 kgs</option>
+                            <option value="106">106 kgs</option>
+                            <option value="107">107 kgs</option>
+                            <option value="108">108 kgs</option>
+                            <option value="109">109 kgs</option>
+                            <option value="110">110 kgs</option>
+                            <option value="111">111 kgs</option>
+                            <option value="112">112 kgs</option>
+                            <option value="113">113 kgs</option>
+                            <option value="114">114 kgs</option>
+                            <option value="115">115 kgs</option>
+                            <option value="116">116 kgs</option>
+                            <option value="117">117 kgs</option>
+                            <option value="118">118 kgs</option>
+                            <option value="119">119 kgs</option>
+                            <option value="120">120 kgs</option>
+                            <option value="121">121 kgs</option>
+                            <option value="122">122 kgs</option>
+                            <option value="123">123 kgs</option>
+                            <option value="124">124 kgs</option>
+                            <option value="125">125 kgs</option>
+                            <option value="126">126 kgs</option>
+                            <option value="127">127 kgs</option>
+                            <option value="128">128 kgs</option>
+                            <option value="129">129 kgs</option>
+                            <option value="130">130 kgs</option>
+                            <option value="131">131 kgs</option>
+                            <option value="132">132 kgs</option>
+                            <option value="133">133 kgs</option>
+                            <option value="134">134 kgs</option>
+                            <option value="135">135 kgs</option>
+                            <option value="136">136 kgs</option>
+                            <option value="137">137 kgs</option>
+                            <option value="138">138 kgs</option>
+                            <option value="139">139 kgs</option>
+                            <option value="140">140 kgs</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 5px; padding-bottom: 5px;">
+                    <div class="col-xs-5">
+                        <p class="text-left">Valor IMC</p>
+                    </div>
+                    <div class="col-xs-7">
+                        <input type="text" class="form-control" id="valorimc" disabled />
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 5px; background-color: #337ab7;">
+                    <div class="col-xs-5">
+                        <p class="text-left">Edad Materna</p>
+                    </div>
+                    <div class="col-xs-7">
+                        <select id="em" class="form-control">
+                            <option value="1">&lt; 19</option>
+                            <option value="2">20 - 21</option>
+                            <option value="3">22 - 23</option>
+                            <option value="4">24 - 25</option>
+                            <option value="5">26 - 27</option>
+                            <option value="6" selected>&gt; 27</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 5px; padding-bottom: 5px; background-color: #337ab7;">
+                    <div class="col-xs-5">
+                        <p class="text-left">Etnia Materna</p>
+                    </div>
+                    <div class="col-xs-7">
+                        <select id="apellm" class="form-control">
+                            <option value="0">Ambos Caucásicos</option>
+                            <option value="2">Solo uno Caucásico</option>
+                            <option value="1" selected>Ninguno Caucásico</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-lg center-block" style="margin-top: 15px; margin-bottom: 15px;" id="g3">Graficar percentil ajustado</button>
+                <div class="row" style="margin-top: 30px; display: none;">
+                    <div class="col-xs-5">
+                        <p class="text-left">Referencia</p>
+                    </div>
+                    <div class="col-xs-7">
+                        <select id="tc" class="form-control">
+                            <option value="1">NACIONAL (Chile)</option>
+                            <option value="2" selected>REGIONAL (Tco.)</option>
+                        </select>
+                    </div>
+                </div>
+                <h4 class="text-left" style="margin-top: 30px;">Cuatro ejemplos para ajuste al peso</h4>
+                <div class="row">
+                    <div class="col-xs-3" style="padding-left: 0px;">
+                        <button class="btn btn-primary" style="margin-top: 15px; margin-bottom: 15px;" id="opt1">Neutro</button>
+                    </div>
+                    <div class="col-xs-3" style="padding-left: 0px;">
+                        <button class="btn btn-primary" style="margin-top: 15px; margin-bottom: 15px;" id="opt3"><span class="glyphicon glyphicon-arrow-down"></span> Pct.</button>
+                    </div>
+                    <div class="col-xs-3" style="padding-left: 0px;">
+                        <button class="btn btn-primary" style="margin-top: 15px; margin-bottom: 15px;" id="opt2"><span class="glyphicon glyphicon-arrow-up"></span> Pct.</button>
+                    </div>
+                    <div class="col-xs-3" style="padding-left: 0px;">
+                        <button class="btn btn-primary" style="margin-top: 15px; margin-bottom: 15px;" id="opt4">Extremos</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Pantalla 7 Grafico ajuste eg-->
+        <div id="div7" class="site-wrapper" style="padding-top: 5px; display: none;">
+            <div class="container">
+                <div class="panel panel-default">
+                    <div class="table-responsive">
+                        <table class="text-left" style="margin: 5px 0 5px 5px;">
+                            <tbody>
+                                <tr>
+                                    <td style="padding-left: 5px;">Semanas</td>
+                                    <td>: <span class="label label-default" id="eg5"></span></td>
+                                    <td>semanas</td>
+                                </tr>
+                                <tr style="padding-right: 30px;">
+                                    <td style="padding-left: 5px;">Peso RN</td>
+                                    <td>: <span class="label label-default" id="peso4"></span></td>
+                                    <td>gramos</td>
+                                </tr>
+                                <tr style="padding-right: 30px;">
+                                    <td style="padding-left: 5px;" id="titulopesoeg5">Peso / EG sin ajuste</td>
+                                    <td>: <span class="label label-default" id="pesoeg5"></span></td>
+                                    <td>.</td>
+                                </tr>
+                                <tr style="padding-right: 30px;">
+                                    <td style="padding-left: 5px;" id="titulopesoeg6">Peso / EG con ajuste</td>
+                                    <td>: <span class="label label-default" id="pesoeg6"></span></td>
+                                    <td>.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="grafico3"></div>
+                <button class="btn btn-primary btn-lg center-block" style="margin-top: 15px; margin-bottom: 15px;" id="chg3">Cambiar gráfica</button>
+            </div>
+        </div>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/highcharts.js"></script>
+        <script src="js/class.js"></script>
+        <script src="js/helpers.js"></script>
+        <script src="js/run.js"></script>
+        <script>
+            runapp();
+        </script>
+    </body>
+</html>
