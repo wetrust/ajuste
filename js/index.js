@@ -1,5 +1,6 @@
 import { make, the, loadSelect } from './wetrust.js'
 
+var RN
 //controlador de fcf
 for (var i = 24; i < 43; i++) {
 	let semanas = the("eg");
@@ -10,7 +11,7 @@ for (var i = 24; i < 43; i++) {
 }
 
 var activo = "portada";
-var examenes = ["portada", "inicio", "examenes", "primero", "examenes", "segundo", "examenes", "tercero"];
+var examenes = ["portada", "inicio", "examenes", "primero", "examenes", "segundo", "examenes", "ajuste"];
 
 the("eg").value = 40;
 
@@ -69,6 +70,106 @@ the("goExamenes").onclick = function(){
 
     RN = new RecienNacido(the("pesoN").value,the("tallaN").value,the("eg").value);
     the("txtIPN").innerHTML = RN.ipn();
+}
+
+the("goPrimero").onclick = function(){
+    the("examenes").classList.add("d-none");
+    the("primero").classList.remove("d-none");
+    activo = "primero";
+
+	let Tablas = new Tabla('Android');
+  Highcharts.chart('grafico1', {
+   title: {
+   text: 'GRAFICO PESO / EG',
+    style: {
+     "color": "#337ab7"
+    }
+   },
+   subtitle: {
+    text: 'REFERENCIA TABLA NACIONAL',
+    style: {
+     "color": "#337ab7",
+    }
+   },
+   chart: {
+    backgroundColor: "rgba(0, 0, 0, 0)"
+   },
+   plotOptions: {
+    series: {
+     enableMouseTracking: false
+    }
+   },
+   yAxis: {
+    title: { text: '' },
+    tickPositions: [400, 860, 1320, 1780, 2240, 2700, 3160, 3620, 4080, 4540],
+    tickColor: "#337ab7",
+    labels: {
+     enabled: true,
+     style: {
+      color: '#337ab7',
+     }
+    }
+   },
+   colors: ['#ff3300', '#ff3300', '#ff3300'],
+   xAxis: {
+    categories:
+    ['24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42'],
+    labels: {
+     enabled: true,
+     style: {
+      color: '#337ab7',
+     }
+    }
+   },
+   credits: { enabled: false },
+    series: [{
+     type: "line",
+     name: 'Pct. 10',
+     marker: { enabled: false },
+     data: Tablas.pct10PesoNacional
+    }, {
+     type: "line",
+     name: 'Pct. 90',
+     marker: { enabled: false },
+     data: Tablas.pct90PesoNacional
+    }, {
+     type: "line",
+     name: 'Peso',
+     dashStyle: "Dot",
+     marker: { symbol: 'square' },
+     lineWidth: 0,
+     data: (function () {
+      var data = [];
+
+      for (i = 24; i <= (RN.eg -1); i++) {
+       data.push({
+        y: 0,
+       });
+      }
+      data.push({
+       y: parseInt(RN.peso),
+      });
+      for (i = RN.eg + 1; i <= 39; i++) {
+       data.push({
+        y: 0,
+       });
+      }
+      return data;
+     }())
+    }]
+  });
+}
+
+the("goSegundo").onclick = function(){
+	the("examenes").classList.add("d-none");
+    the("segundo").classList.remove("d-none");
+    activo = "segundo";
+}
+
+the("goAjuste").onclick = function(){
+	the("examenes").classList.add("d-none");
+    the("ajuste").classList.remove("d-none");
+    activo = "ajuste";
 }
 
 the("back").onclick = back;
