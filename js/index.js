@@ -92,7 +92,7 @@ the("goPrimero").onclick = function(){
     }
    },
    chart: {
-    backgroundColor: "rgba(0, 0, 0, 0)"
+    backgroundColor: 'transparent'
    },
    plotOptions: {
     series: {

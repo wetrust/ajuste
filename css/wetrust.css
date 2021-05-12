@@ -152,6 +152,10 @@ footer a:hover{
     .wetrust .modal-content{
         background-color: #2f3237 !important
     }
+
+    .highcharts-background{
+        fill: #1e2227 !important;
+    }
 }
 
 .text-wetrust{
