@@ -34,7 +34,7 @@ for (var i = 35; i < 141; i++) {
 the("pesom").value = 70
 
 var activo = "portada";
-var examenes = ["portada", "inicio", "examenes", "primero", "examenes", "segundo", "examenes", "ajuste"];
+var examenes = ["portada", "inicio", "examenes", "primero", "examenes", "segundo", "examenes", "ajuste", "graficoAjuste"];
 
 the("eg").value = 40;
 
@@ -334,6 +334,177 @@ the("pesom").onchange = function(){
     the("imc").value = varMama.imc();
     the("en").value = varMama.imcCondicion();
 }
+
+the("ajusteChange").onclick = function(){
+	the("ajuste").classList.add("d-none");
+    the("graficoAjuste").classList.remove("d-none");
+    activo = "graficoAjuste";
+
+    tipografico = 0;
+    let apell = 0;
+    if (the("ema").value == 2) {
+        apell = 1;
+    }
+    else {
+        apell = the("ema").value;
+    }
+
+  varMama.edad = the("em").value;
+  varMama.apellido = apell;
+  varMama.paridad = the("pm").value;
+  RN.sexo = the("sn").value;
+
+  var p90 = [0.2418159,-0.0038925,0.0000168,-0.0130562,-0.0127872,-0.0034632,0.0117179,0.0021092,-0.9260631];
+  var p10 = [-0.2639902,0.0110356,-0.0001265,-0.0146183,-0.0134044,-0.0020684,0.0092266, 0.0009001, 4.474501];
+
+  var p90Pso = [];
+  var p10Pso = [];
+
+  for (let i = 24; i < 43; i++) {
+   let x = i - 24;
+   p90Pso[x] = Math.pow(10, ((i * p90[0]) + (Math.pow(i, 2) * p90[1]) + (Math.pow(i, 3) * p90[2]) + (p90[3] * the("pm").value) + (p90[4] * the("sn").value) + (p90[5] * apell) + (p90[6] * the("en").value) + (p90[7] * the("em").value) + p90[8]));
+   p10Pso[x] = Math.pow(10, ((i * p10[0]) + (Math.pow(i, 2) * p10[1]) + (Math.pow(i, 3) * p10[2]) + (p10[3] * the("pm").value) + (p10[4] * the("sn").value) + (p10[5] * apell) + (p10[6] * the("en").value) + (p10[7] * the("em").value) + p10[8]));;
+  }
+
+  let Tablas = new Tabla('Android');
+
+  Tablas.pct10PesoAjustado = p10Pso;
+  Tablas.pct90PesoAjustado = p90Pso;
+  chart = Highcharts.chart('grafico3', {
+   title: {
+   text: 'GRAFICO PESO / EG',
+    style: {
+     "color": "#337ab7",
+    }
+   },
+   subtitle: {
+    text: 'TABLA DE AJUSTE AL PESO TEMUCO',
+    style: {
+     "color": "#337ab7",
+    }
+   },
+   chart: {
+    backgroundColor: "rgba(0, 0, 0, 0)"
+   },
+   /* plotOptions: {
+    series: {
+     enableMouseTracking: false
+    }
+   }, */
+   yAxis: {
+    title: { text: '' },
+    tickPositions: [400, 860, 1320, 1780, 2240, 2700, 3160, 3620, 4080, 4540,4980],
+    tickColor: "#337ab7",
+    labels: {
+     enabled: true,
+     style: {
+      color: '#337ab7',
+     }
+    }
+   },
+   colors: ['#ff3300', '#ff3300', '#ff3300'],
+   xAxis: {
+    categories:
+    ['24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42'],
+    labels: {
+     enabled: true,
+     style: {
+      color: '#337ab7',
+     }
+    }
+   },
+   credits: { enabled: false },
+    series: [{
+     type: "line",
+     name: 'Pct. 10',
+     marker: { enabled: false },
+          dashStyle: (function (){
+             var estilo = 'solid';
+
+             if (RN.ajustePequeno == true){
+                 estilo = 'Dash';
+             }
+
+             return estilo;
+          }()),
+               color: (function(){
+                  var color = '#ff3300';
+
+                  if (RN.ajustePequeno == true){
+                      color = '#003d99';
+                  }
+                  return color;
+               }()),
+     data: (function () {
+      var data = [];
+      for (let i = 24; i < 43; i++) {
+        let x = i - 24;
+       data.push({
+        y: p10Pso[x],
+       });
+      }
+      return data;
+     }())
+    }, {
+     type: "line",
+     name: 'Pct. 90',
+     marker: { enabled: false },
+     dashStyle: (function (){
+        var estilo = 'solid';
+
+        if (RN.ajustePequeno == true){
+            estilo = 'Dash';
+        }
+
+        return estilo;
+     }()),
+     color: (function(){
+        var color = '#ff3300';
+
+        if (RN.ajustePequeno == true){
+            color = '#003d99';
+        }
+        return color;
+     }()),
+     data: (function () {
+      var data = [];
+      for (let i = 24; i < 43; i++) {
+        let x = i - 24;
+       data.push({
+        y: p90Pso[x],
+       });
+      }
+      return data;
+     }())
+    }, {
+     type: "line",
+     name: 'Peso',
+     dashStyle: "Dot",
+     marker: { symbol: 'square' },
+     lineWidth: 0,
+     data: (function () {
+      var data = [];
+
+      for (let i = 24; i <= (RN.eg -1); i++) {
+       data.push({
+        y: 0,
+       });
+      }
+      data.push({
+       y: parseInt(RN.peso),
+      });
+      for (let i = RN.eg + 1; i <= 39; i++) {
+       data.push({
+        y: 0,
+       });
+      }
+      return data;
+     }())
+    }]
+  });
+
+}
+
 
 the("back").onclick = back;
 
