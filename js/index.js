@@ -505,6 +505,22 @@ the("ajusteChange").onclick = function(){
 
 }
 
+the("ajusteNeutro").onclick = function(){
+
+}
+
+the("ajusteArriba").onclick = function(){
+
+}
+
+the("ajusteAbajo").onclick = function(){
+
+}
+
+the("ajusteExtremo").onclick = function(){
+
+}
+
 
 the("back").onclick = back;
 
