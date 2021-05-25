@@ -1,6 +1,8 @@
 import { make, the, loadSelect } from './wetrust.js'
 
 var RN
+var tipografico = 0
+var chart
 //controlador de fcf
 for (var i = 24; i < 43; i++) {
 	let semanas = the("eg");
@@ -9,6 +11,26 @@ for (var i = 24; i < 43; i++) {
 	opt.value = i;
 	semanas.appendChild(opt);
 }
+
+//controlador de talla materna
+for (var i = 135; i < 186; i++) {
+	let semanas = the("tm");
+	let opt = document.createElement('option');
+	opt.appendChild( document.createTextNode(i + " cms") );
+	opt.value = i;
+	semanas.appendChild(opt);
+}
+the("tm").value = 149
+
+//controlador de peso materno
+for (var i = 35; i < 141; i++) {
+	let semanas = the("pesom");
+	let opt = document.createElement('option');
+	opt.appendChild( document.createTextNode(i + " kgs") );
+	opt.value = i;
+	semanas.appendChild(opt);
+}
+the("pesom").value = 70
 
 var activo = "portada";
 var examenes = ["portada", "inicio", "examenes", "primero", "examenes", "segundo", "examenes", "ajuste"];
@@ -77,8 +99,9 @@ the("goPrimero").onclick = function(){
     the("primero").classList.remove("d-none");
     activo = "primero";
 
+    tipografico = 0;
 	let Tablas = new Tabla('Android');
-  Highcharts.chart('grafico1', {
+    chart = Highcharts.chart('grafico1', {
    title: {
    text: 'GRAFICO PESO / EG',
     style: {
@@ -160,10 +183,124 @@ the("goPrimero").onclick = function(){
   });
 }
 
+the("primeroChange").onclick = function(){
+    let Tablas = new Tabla('Android');
+    if (tipografico == 0) {
+        tipografico = 1;
+        chart.setTitle(null, { text: 'REFERENCIA TABLA REGIONAL' });
+        chart.series[1].setData(Tablas.pct90PesoTemuco);
+        chart.series[0].setData(Tablas.pct10PesoTemuco);
+    }
+    else if (tipografico == 1) {
+        tipografico = 0;
+        chart.setTitle(null, { text: 'REFERENCIA TABLA NACIONAL' });
+        chart.series[1].setData(Tablas.pct90PesoNacional);
+        chart.series[0].setData(Tablas.pct10PesoNacional);
+    }
+}
+
 the("goSegundo").onclick = function(){
 	the("examenes").classList.add("d-none");
     the("segundo").classList.remove("d-none");
     activo = "segundo";
+
+    tipografico = 0;
+    let Tablas = new Tabla('Android');
+
+    chart = Highcharts.chart('grafico2', {
+     title: {
+      text: 'GRAFICO IPN / EG',
+      style: {
+       "color": "#337ab7",
+      }
+     },
+     subtitle: {
+      text: 'REFERENCIA TABLA NACIONAL',
+      style: {
+       "color": "#337ab7",
+      }
+     },
+     chart: {
+      backgroundColor: "rgba(0, 0, 0, 0)"
+     },
+     plotOptions: {
+      series: {
+       enableMouseTracking: false
+      }
+     },
+     yAxis: {
+      title: { text: '' },
+      tickPositions: [1, 1.6, 2.2, 2.8, 3.4, 4],
+      labels: {
+       enabled: true,
+       style: {
+        color: '#337ab7',
+       }
+      }
+     },
+     colors: ['#ff3300', '#ff3300', '#ff3300'],
+     xAxis: {
+      categories:
+      ['24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42'],
+      labels: {
+       enabled: true,
+       style: {
+        color: '#337ab7',
+       }
+      }
+     },
+     credits: { enabled: false },
+     series: [{
+      type: "line",
+      name: 'Pct. 10',
+      marker: { enabled: false },
+      data: Tablas.pct10IpnNacional
+     }, {
+      type: "line",
+      name: 'Pct. 90',
+      marker: { enabled: false },
+      data: Tablas.pct90IpnNacional
+     }, {
+      type: "line",
+      name: 'IPN',
+      dashStyle: "Dot",
+      marker: { symbol: 'square' },
+      lineWidth: 0,
+      data: (function () {
+       var data = [];
+       for (i = 24; i <= (RN.eg - 1); i++) {
+        data.push({
+         y: 0,
+        });
+       }
+       data.push({
+        y: parseFloat(RN.ipn()),
+       });
+       for (i = RN.eg + 1; i <= 43; i++) {
+        data.push({
+         y: 0,
+        });
+       }
+       return data;
+      }())
+     }]
+    });
+}
+
+the("segundoChange").onclick = function(){
+    let Tablas = new Tabla('Android');
+    if (tipografico == 0) {
+     tipografico = 1;
+     chart.setTitle(null, { text: 'REFERENCIA TABLA REGIONAL' });
+     chart.series[0].setData(Tablas.pct10IpnTemuco);
+     chart.series[1].setData(Tablas.pct90IpnTemuco);
+    }
+    else if (tipografico == 1) {
+     tipografico = 0;
+     chart.setTitle(null, { text: 'REFERENCIA TABLA NACIONAL' });
+     chart.series[0].setData(Tablas.pct10IpnNacional);
+     chart.series[1].setData(Tablas.pct90IpnNacional);
+    }
 }
 
 the("goAjuste").onclick = function(){
