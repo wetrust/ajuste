@@ -3,6 +3,7 @@ import { make, the, loadSelect } from './wetrust.js'
 var RN
 var tipografico = 0
 var chart
+let varMama
 //controlador de fcf
 for (var i = 24; i < 43; i++) {
 	let semanas = the("eg");
@@ -307,6 +308,31 @@ the("goAjuste").onclick = function(){
 	the("examenes").classList.add("d-none");
     the("ajuste").classList.remove("d-none");
     activo = "ajuste";
+
+    let apell = 0;
+    if (the("ema").value == 2) {
+        apell = 1;
+    }
+    else {
+        apell = the("ema").value;
+    }
+
+    varMama = new Mama(the("tm").value,the("pesom").value,the("em").value,apell);
+    the("imc").value = varMama.imc();
+    the("en").value = varMama.imcCondicion();
+}
+
+
+the("tm").onchange = function(){
+    varMama.talla = the("tm").value;
+    the("imc").value = varMama.imc();
+    the("en").value = varMama.imcCondicion();
+}
+
+the("pesom").onchange = function(){
+    varMama.peso = the("pesom").value;
+    the("imc").value = varMama.imc();
+    the("en").value = varMama.imcCondicion();
 }
 
 the("back").onclick = back;
